@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block main_content %}
+<main id="content" role="main">
+    <div class="container container-masonry">
+        <div class="inner">
+            {% if category %}
+                <div class="col-md-12">
+					<h1>{{category.h1}}</h1>
+					<div class="margin-1"></div>
+				</div>
+            {% endif %}
+            <div class="row">
+                {% for article in object_list %}
+                {% if category %}
+                    {% if forloop.counter <= 2 %}
+                    <div class="box col-sm-5 col-md-3">
+                        <div class="post-box vertical clearfix">
+                            <a href="{% url 'post' article.slug %}" class="image-link arrow-icon dark-overlay"><img src="{{article.img|thumbnail_url:'small'}}" alt="{{article.h1}}" width="434" height="434"></a>
+                            <div class="extra-info">
+                                <p class="meta small">{{article.date}}</p>
+                                <h5><a href="{% url 'post' article.slug %}">{{article.h1}}</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="box col-sm-6">
+                        <div class="post-box horizontal clearfix">
+                            <a href="{% url 'post' article.slug %}" class="image-link arrow-icon dark-overlay"><img src="{{article.img|thumbnail_url:'small'}}" width="434" height="434" alt="{{article.h1}}"></a>
+                            <div class="extra-info">
+                                <p class="meta small">{{article.date}}</p>
+                                <h5><a href="{% url 'post' article.slug %}">{{article.h1}}</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% else %}
+                    {% if forloop.counter == 1 %}
+                    <div class="box col-sm-7 col-md-6">
+                        <div class="thumb featured">
+                            <div class="photo">
+                                <a href="{% url 'post' article.slug %}">
+                                    <img src="{{article.img|thumbnail_url:'big' }}" alt="{{article.h1}}" height="715" width="715">
+                                    <span class="info"><strong class="big-title">{{article.h1|truncatewords:5}}</strong><span class="excerpt">{{article.description}}</span><em class="arrow-right"></em></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% elif forloop.counter == 2 %}
+                    <div class="box col-sm-5 col-md-3">
+                        <div class="post-box vertical clearfix">
+                            <a href="{% url 'post' article.slug %}" class="image-link arrow-icon dark-overlay"><img src="{{article.img|thumbnail_url:'small'}}" alt="{{article.h1}}" width="434" height="434"></a>
+                            <div class="extra-info">
+                                <p class="meta small">{{article.date}}</p>
+                                <h5><a href="{% url 'post' article.slug %}">{{article.h1}}</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    {% elif forloop.counter == 3 %}
+                    <div class="box col-sm-6 col-md-3">
+                        <div class="post-box vertical clearfix">
+                            <div class="extra-info">
+                                <p class="meta small">{{article.date}}</p>
+                                <h5><a href="{% url 'post' article.slug %}">{{article.h1}}</a></h5>
+                            </div>
+                            <a href="{% url 'post' article.slug %}" class="image-link arrow-icon dark-overlay"><img src="{{article.img|thumbnail_url:'small'}}" alt="{{article.h1}}" width="434" height="434"></a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="box col-sm-6">
+                        <div class="post-box horizontal clearfix">
+                            <a href="{% url 'post' article.slug %}" class="image-link arrow-icon dark-overlay"><img src="{{article.img|thumbnail_url:'small'}}" width="434" height="434" alt="{{article.h1}}"></a>
+                            <div class="extra-info">
+                                <p class="meta small">{{article.date}}</p>
+                                <h5><a href="{% url 'post' article.slug %}">{{article.h1}}</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% if page_obj.has_next %}
+            <div class="margin-4"></div>
+            <div class="box col-sm-12 text-center" id="load">
+                <a class="button color no-bottom">Загрузить еще</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</main>
+{% endblock main_content %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/site.js' %}"></script>
+
+{% if page_obj.has_next %}
+<script type="text/javascript">
+var page = {{ page_obj.next_page_number }};
+var pages_count = {{page_obj.paginator.num_pages}};
+var currentLocation = window.location;
+$(function() {
+    $("#load").click(function(){
+    $.ajax({
+        url: currentLocation,
+        type: "GET",
+        data: {"page": page},
+        cache: false,
+        success: function(response){
+            $(".row").append(response);
+            page = page + 1;
+            if(page > pages_count){
+                $("#load").remove();}
+            }
+        });
+    });
+});
+</script>
+{% endif %}
+
+{% endblock scripts %}

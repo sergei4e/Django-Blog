@@ -1,0 +1,12 @@
+{% load thumbnail %}
+{% for article in  object_list %}
+<div class="box col-sm-6">
+    <div class="post-box horizontal clearfix">
+        <a href="{% url 'post' article.slug %}" class="image-link arrow-icon dark-overlay"><img src="{{article.img|thumbnail_url:'small'}}" width="434" height="434" alt="{{article.h1}}"></a>
+        <div class="extra-info">
+            <p class="meta small">{{article.date}}</p>
+            <h5><a href="{% url 'post' article.slug %}">{{article.h1}}</a></h5>
+        </div>
+    </div>
+</div>
+{% endfor %}

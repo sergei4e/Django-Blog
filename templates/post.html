@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block main_content %}
+<main id="content" class="white-background" role="main">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+				<h1 class="single-title no-bottom">{{object.h1}}</h1>
+				<p class="post-meta"><span>{{object.date}}, Сергей Черненко</span></p>
+				{{object.post | safe}}
+				{% if object.automatic %}
+				<br />
+				<p>Данная статья переведена автоматически с источника <br />
+					<b>{{object.source}}</b></p>
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+				<div class="row">
+					<div class="sep margin-2"></div>
+					<div class="col-sm-6">
+						<h5>Поделиться</h5>
+						<p class="social-share no-bottom">
+						<div class="pluso" data-background="#ebebeb" data-options="medium,round,line,horizontal,counter,theme=04" data-services="facebook,twitter,google,linkedin,pinterest,vkontakte,email,print"></div>
+						</p>
+					</div>
+					<div class="col-sm-6">
+						<p class="tags"><strong class="padding-bottom">Теги:</strong><a href="post.html#">Blog</a> <a href="post.html#">Mobile</a> <a href="post.html#">Post</a></p>
+					</div>
+				</div>
+
+				<div class="sep margin-2"></div>
+
+				<h5>Другие статьи</h5>
+				<div class="owl-carousel owl-thumbs-2">
+					{% for post in allposts %}
+					<div class="thumb dark-overlay">
+						<div class="photo">
+							<a href="{% url 'post' post.slug %}">
+								<img src="{{post.img|thumbnail_url:'small'}}" alt="{{post.h1}}" width="434" height="434">
+								<span class="info"><span class="big-excerpt">{{post.h1}}</span></span>
+							</a>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+				<div class="margin-5"></div>
+
+				<div class="margin-4"></div>
+
+				<div id="disqus_thread"></div>
+				<script type="text/javascript">
+					var disqus_shortname = 'exahtmltemplate';
+					var disqus_developer = 1;
+					(function() {
+						var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+						dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+						(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+					})();
+				</script>
+				<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+				<div class="margin-6"></div>
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock main_content %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script>
+	jQuery(".owl-carousel.owl-thumbs-2").owlCarousel({
+		items   : 2,
+		margin  : 30,
+		nav     : true,
+		navText : ['', ''],
+		dots    : false,
+		loop    : false
+	});
+
+	jQuery(".owl-carousel.owl-thumbs-3").owlCarousel({
+		items   : 3,
+		margin  : 30,
+		nav     : false,
+		navText : ['', ''],
+		dots    : false,
+		loop    : false
+	});
+</script>
+<script type="text/javascript">(function() {
+  if (window.pluso)if (typeof window.pluso.start == "function") return;
+  if (window.ifpluso==undefined) { window.ifpluso = 1;
+    var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+    s.type = 'text/javascript'; s.charset='UTF-8'; s.async = true;
+    s.src = ('https:' == window.location.protocol ? 'https' : 'http')  + '://share.pluso.ru/pluso-like.js';
+    var h=d[g]('body')[0];
+    h.appendChild(s);
+  }})();
+</script>
+<script type="text/javascript" src="{% static 'js/site.js' %}"></script>
+{% endblock scripts %}

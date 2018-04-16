@@ -1,0 +1,11 @@
+[Unit]
+Description=seoshnik.top gunicorn daemon
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/root/seoshnik
+ExecStart=/root/miniconda3/envs/seoshnik/bin/gunicorn --access-logfile - --workers 4 --bind unix:/root/seoshnik/seoshnik.sock seoshnik.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

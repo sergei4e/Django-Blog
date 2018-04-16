@@ -1,0 +1,160 @@
+{% load static %}
+<!doctype html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+	<title>{% block title %}Блог Сеошника - Блог о SEO - Авторские статьи и переводы{% endblock %}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Exa is fully responsive creative agency/freelancer portfolio HTML site template that looks great on any device.">
+	<meta name="keywords" content="Exa, HTML5, Template, Design, Development">
+	<link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic%7CRoboto:400,700%7CDroid+Serif" rel="stylesheet" type="text/css">
+	<link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.10";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+	<header id="top" class="navbar" role="banner">
+		<div class="container">
+			<div class="inner">
+
+				<div class="site-title">
+					<a href="{% url 'home' %}"><img src="{% static 'img/logo-min.png' %}" alt="Exa"></a>
+					<a href="{% url 'home' %}#site-menu" class="site-menu-toggle">
+						<span class="sr-only">Toggle navigation</span>
+						<em class="first"></em><em class="middle"></em><em class="last"></em>
+					</a>
+				</div>
+
+				<div id="site-menu">
+					<nav>
+						<ul>
+							<li class="current-menu-parent"><a href="/page/about">Об Авторе</a></li>
+							<li class="menu-item-has-children">
+								<span>Категории</span>
+								<ul>
+									{% for c in cats %}
+										<li><a href="{% url 'cat' c.slug %}">{{c.name}}</a></li>
+									{% endfor %}
+								</ul>
+							</li>
+							<!-- li class="menu-item-has-children">
+								<a href="#">Услуги</a>
+								<ul>
+									<li><a href="#">Раскрутка сайтов</a></li>
+									<li><a href="#">SEO консультации</a></li>
+									<li><a href="#">Аудит сайтов</a></li>
+									<li><a href="#">Разработка ПО</a></li>
+									<li><a href="#">Курсы по SEO</a></li>
+								</ul>
+							</li -->
+							<li class="menu-item-has-children">
+								<span>Инструменты</span>
+								<ul>
+									<li><a href="http://trans.seoshnik.top" target="_blank">Translater API</a></li>
+									<li><a href="http://uniq.seoshnik.top" target="_blank">Uniqueness Checker</a></li>
+									<li><a href="http://mega.seoshnik.top" target="_blank">Mega Tool</a></li>
+									<li><a href="http://proxy.seoshnik.top/" target="_blank">Proxy Finder</a></li>
+									<li><a href="http://keys.seoshnik.top/" target="_blank">Keywords Database</a></li>
+									<li><a href="http://textgen.seoshnik.top/" target="_blank">Text Generator</a></li>
+								</ul>
+							</li>
+								<li><a href="/page/contacts">Контакты</a></li>
+							<li class="menu-item-search">
+								<a href="http://html.liviucerchez.com/exa/light/search.html"><i class="fa fa-search"></i><i class="fa fa-times"></i></a>
+								<form method="get" id="site-searchform" class="searchform" action="http://html.liviucerchez.com/exa/light/search.html">
+									<input type="search" name="s" autocomplete="off" placeholder="Search&hellip;">
+									<input type="submit" value="&#xf002;">
+								</form>
+							</li>
+						</ul>
+					</nav>
+				</div>
+
+			</div>
+		</div>
+	</header>
+	{% block main_content %}
+	<main id="content" role="main">
+		<div class="container container-masonry">
+			<div class="inner">
+				<div class="row">
+
+					<div class="box col-sm-7 col-md-6">
+						<div class="thumb featured">
+							<div class="photo">
+								<a href="{% url 'post' %}">
+									<img src="{% static 'img/sample-thumb11.jpg' %}" alt="" width="715" height="715">
+									<span class="info"><strong class="big-title">Dominance, focal points and hierarchy</strong><span class="excerpt">Your content might be the king, but are you presenting it as one? Do people look where they should?</span><em class="arrow-right"></em></span>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="box col-sm-5 col-md-3">
+						<div class="post-box vertical clearfix">
+							<a href="{% url 'post' %}" class="image-link arrow-icon"><img src="{% static 'img/sample-thumb5.jpg' %}" width="434" height="434" alt=""></a>
+							<div class="extra-info">
+								<p class="meta small">1 day ago by <a href="blog.html#">Nicole</a></p>
+								<h5><a href="{% url 'post' %}">Harnessing Flexbox For Today’s Webapps</a></h5>
+							</div>
+						</div>
+					</div>
+
+					<div class="box col-sm-6 col-md-3">
+						<div class="post-box vertical clearfix">
+							<div class="extra-info">
+								<p class="meta small">2 day ago by <a href="blog.html#">Sheila</a></p>
+								<h5><a href="{% url 'post' %}">Conducting User Research in other countries</a></h5>
+							</div>
+							<a href="post.html" class="image-link arrow-icon dark-overlay"><img src="{% static 'img/sample-thumb7.jpg' %}" width="434" height="434" alt=""></a>
+						</div>
+					</div>
+
+					<div class="box col-sm-6">
+						<div class="post-box horizontal clearfix">
+							<a href="{% url 'post' %}" class="image-link play-icon dark-overlay"><img src="{% static 'img/sample-thumb12.jpg' %}" width="434" height="434" alt=""></a>
+							<div class="extra-info">
+								<p class="meta small">4 days ago by <a href="blog.html#">Andrew</a></p>
+								<h5><a href="{% url 'post' %}">Putting Mobile Backend as a service into practice</a></h5>
+							</div>
+						</div>
+					</div>
+
+					<div class="box col-sm-6">
+						<div class="post-box horizontal clearfix">
+							<a href="{% url 'post' %}" class="image-link arrow-icon"><img src="{% static 'img/sample-thumb13.jpg' %}" width="434" height="434" alt=""></a>
+							<div class="extra-info">
+								<p class="meta small">5 days ago by <a href="blog.html#">Sheila</a></p>
+								<h5><a href="{% url 'post' %}">Product Design Unification Study: Mobile Web Framework</a></h5>
+							</div>
+						</div>
+					</div>
+
+					<div class="box col-sm-12 text-center">
+						<a href="#" class="button color no-bottom">Load More Posts</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</main>
+	{% endblock main_content %}
+	<footer id="footer" role="contentinfo">
+		<div class="container">
+			<p>&copy; 2013 - 2018 Seoshnik.Top | Блог Сеошника | Сеошим Правильно</p>
+		</div>
+	</footer>
+	{% block scripts %}
+	<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/site.js' %}"></script>
+	{% endblock scripts %}
+</body>
+</html>
