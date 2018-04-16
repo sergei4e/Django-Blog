@@ -21,6 +21,9 @@ class Category(models.Model):
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return f'/category/{self.slug}'
+
 
 class Article(models.Model):
     h1 = models.CharField(max_length=255)
@@ -51,6 +54,9 @@ class Article(models.Model):
             self.description = self.short[:200]
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return f'/{self.slug}'
+
 
 class Page(models.Model):
     h1 = models.CharField(max_length=255)
@@ -68,3 +74,6 @@ class Page(models.Model):
         if not self.title:
             self.title = self.h1
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return f'/page/{self.slug}'

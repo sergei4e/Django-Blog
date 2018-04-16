@@ -15,18 +15,27 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from blog import views
+from blog import views, sitemaps
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
+
+
+all_sitemaps = {
+    'articles': sitemaps.ArticleSitemap,
+    'categories': sitemaps.CategorySitemap,
+    'pages': sitemaps.PageSitemap
+}
 
 
 urlpatterns = [
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': all_sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     url(r'^admin/', admin.site.urls),
     url(r'^summernote/', include('django_summernote.urls')),
     url(r'^$', views.IndexView.as_view(), name='home'),
-    url(r'^category/(?P<slug>.*)/$', views.IndexView.as_view(), name='cat'),
-    url(r'^page/(?P<slug>.*)/$', views.PageView.as_view(), name='page'),
-    url(r'^(?P<slug>.*)/$', views.PostView.as_view(), name='post'),
+    url(r'^category/(?P<slug>.*)$', views.IndexView.as_view(), name='cat'),
+    url(r'^page/(?P<slug>.*)$', views.PageView.as_view(), name='page'),
+    url(r'^post/(?P<slug>.*)$', views.PostView.as_view(), name='post'),
 ]
 
 if settings.DEBUG:

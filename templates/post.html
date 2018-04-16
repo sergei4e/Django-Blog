@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load thumbnail %}
+
+{% block title %}
+{{object.h1}} - Блог Сеошника
+{% endblock title%}
+
 {% block main_content %}
 <main id="content" class="white-background" role="main">
 	<div class="container">

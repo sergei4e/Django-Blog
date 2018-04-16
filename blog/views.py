@@ -14,11 +14,11 @@ class IndexView(ListView):
             return Article.objects.filter(category=self.category)
         else:
             self.category = None
-            return Article.objects.all()
+            return Article.objects.filter(category=Category.objects.get(slug='my-articles'))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['cats'] = Category.objects.all()
+        context['cats'] = Category.objects.all().exclude(slug='my-articles')
         context['category'] = self.category
         if self.request.is_ajax():
             self.template_name = 'appender.html'
@@ -31,7 +31,7 @@ class PostView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['cats'] = Category.objects.all()
+        context['cats'] = Category.objects.all().exclude(slug='my-articles')
         context['allposts'] = Article.objects.order_by('-date')[:10]
         return context
 
@@ -42,5 +42,5 @@ class PageView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['cats'] = Category.objects.all()
+        context['cats'] = Category.objects.all().exclude(slug='my-articles')
         return context

@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load thumbnail %}
+
+{% block title %}
+{% if category %}
+{{category.title}}
+{% else %}
+Блог Сеошника - Блог о SEO - Авторские статьи и переводы
+{% endif %}
+{% endblock title%}
+
 {% block main_content %}
 <main id="content" role="main">
     <div class="container container-masonry">
