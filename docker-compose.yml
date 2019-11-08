@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  web_app:
+    build: ./web_app
+    container_name: web_app_seoshnik
+#    env_file: ./web_application/web.env
+    command: /code/run_web.sh
+    volumes:
+      - ./web_app:/code
+    ports:
+      - "8007:8000"
